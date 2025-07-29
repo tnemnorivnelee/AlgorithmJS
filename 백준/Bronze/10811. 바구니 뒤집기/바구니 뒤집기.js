@@ -4,9 +4,7 @@ const input = fs.readFileSync(0).toString().trim().split('\n');
 
 const [N, M] = input[0].split(" ").map(Number);
 
-const baskets = Array(N)
-  .fill(0)
-  .map((_, index) => index + 1);
+const baskets = Array.from({ length: N }, (_, idx) => idx + 1);
 
 for (let i = 1; i <= M; i++) {
   const [num1, num2] = input[i].split(" ").map(Number);
