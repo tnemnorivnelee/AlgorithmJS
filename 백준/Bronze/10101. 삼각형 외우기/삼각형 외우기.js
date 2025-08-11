@@ -1,24 +1,18 @@
-const fs = require("fs");
+const fs = require('fs');
+const angles = fs.readFileSync('/dev/stdin').toString().trim().split('\n').map(Number);
 
-const input = fs
-  .readFileSync(0)
-  .toString()
-  .trim()
-  .split("\n")
-  .map(Number);
+const sum = angles.reduce((acc, cur) => acc + cur, 0);
 
-const [a, b, c] = input;
-
-const total = input.reduce((pre, cur) => pre + cur, 0);
-
-if (a === 60 && b === 60 && c === 60) {
-  console.log("Equilateral");
-} else if (total === 180) {
-  if (a === b || b === c || a === c) {
-    console.log("Isosceles");
-  } else {
-    console.log("Scalene");
-  }
+if (sum !== 180) {
+  console.log('Error');
 } else {
-  console.log("Error");
+  const uniqueAngles = new Set(angles);
+
+  if (uniqueAngles.size === 1) {
+    console.log('Equilateral');
+  } else if (uniqueAngles.size === 2) {
+    console.log('Isosceles');
+  } else { 
+    console.log('Scalene');
+  }
 }
