@@ -4,19 +4,17 @@ const input = fs.readFileSync(0).toString().trim();
 
 let number = Number(input);
 
-let temp = 2;
-
 const result = [];
 
-while (true) {
-  if (number < temp) break;
-
-  while (number % temp === 0) {
-    result.push(temp);
-    number /= temp;
+for (let i = 2; i <= Math.sqrt(number); i++) {
+  while (number % i === 0) {
+    result.push(i);
+    number /= i;
   }
+}
 
-  temp++;
+if (number > 1) {
+  result.push(number);
 }
 
 if (Number(input) !== 1) {
