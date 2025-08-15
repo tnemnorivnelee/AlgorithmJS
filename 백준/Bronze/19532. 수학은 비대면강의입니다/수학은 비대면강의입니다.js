@@ -1,19 +1,16 @@
 const fs = require("fs");
-const input = fs
+
+const [a, b, c, d, e, f] = fs
   .readFileSync(0)
   .toString()
   .trim()
   .split(" ")
   .map(Number);
 
-const [a, b, c, d, e, f] = input;
+const denominator = a * e - b * d;
 
-for (let x = -999; x <= 999; x++) {
-  for (let y = -999; y <= 999; y++) {
-    if (a * x + b * y === c) {
-      if (d * x + e * y === f) {
-        console.log(x, y);
-      }
-    }
-  }
-}
+const x = (c * e - b * f) / denominator;
+
+const y = (a * f - c * d) / denominator;
+
+console.log(`${x} ${y}`);
