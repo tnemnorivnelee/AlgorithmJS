@@ -1,62 +1,31 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const [cases, ...input] = fs.readFileSync('/dev/stdin').toString().trim().split(/\r?\n/);
+const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const N = cases.split(' ')[0];
-const M = cases.split(' ')[1];
+const [N, M] = input[0].split(" ").map(Number);
 
-const wBoard = [
-    'WBWBWBWB',
-    'BWBWBWBW',
-    'WBWBWBWB',
-    'BWBWBWBW',
-    'WBWBWBWB',
-    'BWBWBWBW',
-    'WBWBWBWB',
-    'BWBWBWBW',
-];
-const bBoard = [
-    'BWBWBWBW',
-    'WBWBWBWB',
-    'BWBWBWBW',
-    'WBWBWBWB',
-    'BWBWBWBW',
-    'WBWBWBWB',
-    'BWBWBWBW',
-    'WBWBWBWB',
-];
+const board = input.slice(1);
 
-const wCompareBoard = (a, b) => {
-    let count = 0;
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            if (input[i + a][j + b] !== wBoard[i][j]) {
-                count++;
-            }
-        }
+let minCount = Infinity;
+
+for (let i = 0; i <= N - 8; i++) {
+  for (let j = 0; j <= M - 8; j++) {
+    let repaintCount = 0;
+    const startColor = board[i][j];
+
+    for (let row = i; row < i + 8; row++) {
+      for (let col = j; col < j + 8; col++) {
+        const expectedColor =
+          (row + col) % 2 === 0 ? startColor : startColor === "W" ? "B" : "W";
+
+        if (board[row][col] !== expectedColor) repaintCount++;
+      }
     }
-    return count;
+
+    const oppositeCaseCount = 64 - repaintCount;
+
+    minCount = Math.min(minCount, repaintCount, oppositeCaseCount);
+  }
 }
 
-const bCompareBoard = (a, b) => {
-    let count = 0;
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            if (input[i + a][j + b] !== bBoard[i][j]) {
-                count++;
-            }
-        }
-    }
-    return count;
-}
-
-const result = [];
-
-for (let i = 0; i < N - 7; i++) {
-    for (let j = 0; j < M - 7; j++) {
-        result.push(wCompareBoard(i, j));
-        result.push(bCompareBoard(i, j));
-    }
-}
-
-console.log(Math.min(...result));
+console.log(minCount);
