@@ -1,23 +1,19 @@
 const fs = require("fs");
 
-const input = fs.readFileSync("./dev/stdin").toString().trim().split(/\r?\n/).map(Number);
+const input = fs.readFileSync("./dev/stdin").toString().trim().split("\n").map(Number);
 
-const N = input.shift();
+const N = input.slice(0, 1);
+
+const trees = input.slice(1)
 
 const gcd = (a, b) => {
-  if (b === 0) return a;
-
-  return gcd(b, a % b);
+  return b === 0 ? a : gcd(b, a % b);
 }
 
-const gap = [];
+const gaps = trees.slice(1).map((tree, index) => tree - trees[index]);
 
-for (let i = 0; i < input.length - 1; i++) {
-  gap.push(input[i + 1] - input[i]);
-}
+const totalGcd = gaps.reduce((prev, cur) => gcd(prev, cur));
 
-const totalGcd = gap.reduce((acc, cur) => gcd(acc, cur));
-
-const totalTrees = (input[N - 1] - input[0]) / totalGcd + 1;
+const totalTrees = (trees[N - 1] - trees[0]) / totalGcd  + 1;
 
 console.log(totalTrees - N);
