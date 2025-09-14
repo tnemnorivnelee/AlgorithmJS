@@ -17,16 +17,24 @@ for (let i = 2; i**2 <= MAX_RANGE; i++) {
   }
 }
 
+// 누적 합 방법
+
+const primeCountSum = new Array(MAX_RANGE + 1).fill(0);
+
+for (let i = 2; i <= MAX_RANGE; i++) {
+  // 이전까지의 누적 합 가져오기
+  primeCountSum[i] = primeCountSum[i - 1];
+
+  if(isPrime[i]) primeCountSum[i]++;
+}
+
 const result = [];
 
+input.pop();
+
 for (const n of input) {
-  if (n === 0) break;
+  const count = primeCountSum[2 * n] - primeCountSum[n];
 
-  let count = 0;
-
-  for (let i = n + 1; i <= 2 * n; i++) {
-    if (isPrime[i]) count++;
-  }
   result.push(count);
 }
 
