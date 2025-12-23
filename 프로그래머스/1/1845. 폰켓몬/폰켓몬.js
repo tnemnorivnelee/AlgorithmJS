@@ -1,9 +1,7 @@
 function solution(nums) {
-  var answer = 0;
-
-  const setNums = new Set(nums);
-
-  answer = Math.min(nums.length / 2, setNums.size);
-
-  return answer;
+    const setNums = new Set(nums);
+    
+    const answer = Math.min(setNums.size, nums.length / 2);
+    
+    return answer;
 }
