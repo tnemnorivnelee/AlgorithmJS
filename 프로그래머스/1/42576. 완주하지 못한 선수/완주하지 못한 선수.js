@@ -1,20 +1,21 @@
-const p = ["mislav", "stanko", "mislav", "ana"];
-const c = ["stanko", "ana", "mislav"];
-
 function solution(participant, completion) {
-  const participantMap = new Map();
-
-  for (const name of participant) {
-    participantMap.set(name, (participantMap.get(name) || 0) + 1);
-  }
-
-  for (const name of completion) {
-    participantMap.set(name, participantMap.get(name) - 1);
-  }
-
-  for (const [name, count] of participantMap) {
-    if (count > 0) return name;
-  }
+    const mapParticipant = new Map();
+    
+    for (let i = 0; i < participant.length; i++) {
+        if (mapParticipant.has(participant[i])) {
+            mapParticipant.set(participant[i], mapParticipant.get(participant[i]) + 1);    
+        } else {
+            mapParticipant.set(participant[i], 1);
+        }
+    }
+    
+    for (let i = 0; i < completion.length; i++) {
+        if (mapParticipant.has(completion[i])) {
+            mapParticipant.set(completion[i], mapParticipant.get(completion[i]) - 1);
+        }
+    }
+    
+    for (const [key, value] of mapParticipant) {
+        if (value) return key;
+    }
 }
-
-console.log(solution(p, c));
