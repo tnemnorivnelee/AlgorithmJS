@@ -1,31 +1,32 @@
 function solution(answers) {
-    const result = [];
+    const sufoja1 = [1, 2, 3, 4, 5];
+    const sufoja2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    const sufoja3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
     
-    const patterns = [
-        [1, 2, 3, 4, 5],
-        [2, 1, 2, 3, 2, 4, 2, 5],
-        [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
-    ];
+    const sufojas = [sufoja1, sufoja2, sufoja3];
     
-    // 수포자 1,2,3 의 점수를 저장하는 공간
-    const score = new Array(3).fill(0);
+    // console.log(sufojas);
     
-    for (let i = 0; i < patterns.length; i++) {
+    const scores = [0, 0, 0];
+    
+    for (let i = 0; i < sufojas.length; i++) {
         for (let j = 0; j < answers.length; j++) {
-            if (answers[j] === patterns[i][j % patterns[i].length]) {
-                score[i]++;
+            if (answers[j] === sufojas[i][j % sufojas[i].length]) {
+                scores[i]++;
             }
         }
     }
     
+    // console.log(scores);
     
-    const maxScore = Math.max(...score);
+    const maxScore = Math.max(...scores);
     
-    score.forEach((item, index) => {
-        if (item === maxScore) {
-            result.push(index + 1);
-        }
-    });
+    const answer = [];
     
-    return result;    
+    for (let i = 0; i < scores.length; i++) {
+        if (scores[i] === maxScore) answer.push(i + 1);
+    }
+    
+    // console.log(answer);
+    return answer;
 }
