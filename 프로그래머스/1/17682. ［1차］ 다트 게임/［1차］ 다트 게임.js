@@ -1,39 +1,46 @@
 function solution(dartResult) {
-    const stack = [];
     
-    let tempScore = 0;
+    const scores = [0, 0, 0];
+    let scoreIndex = -1;
     
     for (let i = 0; i < dartResult.length; i++) {
-        const char = dartResult[i];
+        const value = dartResult[i];
         
-        if (!isNaN(char)) {
-            if (char === '0' && dartResult[i - 1] === '1') {
-                tempScore = 10;
+        if (!isNaN(value)) {
+            scoreIndex++;
+            
+            if (value === '1' && dartResult[i + 1] === '0') {
+                scores[scoreIndex] = 10;
+                i++;
             } else {
-                tempScore = parseInt(char, 10);
+                scores[scoreIndex] = parseInt(value, 10);
             }
-        }
-        else {
-            switch (char) {
-                case "S":
-                    stack.push(Math.pow(tempScore, 1));
+        } else {
+            switch (value) {
+                case 'S':
+                    scores[scoreIndex] = Math.pow(scores[scoreIndex], 1);
                     break;
-                case "D":
-                    stack.push(Math.pow(tempScore, 2));
+                case 'D':
+                    scores[scoreIndex] = Math.pow(scores[scoreIndex], 2);
                     break;
-                case "T":
-                    stack.push(Math.pow(tempScore, 3));
+                case 'T':
+                    scores[scoreIndex] = Math.pow(scores[scoreIndex], 3);
                     break;
-                case "*":
-                    stack[stack.length - 1] *= 2;
-                    if (stack.length > 1) stack[stack.length - 2] *= 2;
+                case '*':
+                    scores[scoreIndex] *= 2;
+                    if (scoreIndex >= 1) scores[scoreIndex - 1] *= 2;
                     break;
-                case "#":
-                    stack[stack.length - 1] *= -1;
+                case '#':
+                    scores[scoreIndex] *= -1;
                     break;
             }
         }
     }
-
-    return stack.reduce((acc, cur) => acc + cur, 0);
+    
+    // console.log(scores);
+    
+    const answer = scores.reduce((acc, cur) => acc + cur, 0);
+    
+    return answer;
+    
 }
