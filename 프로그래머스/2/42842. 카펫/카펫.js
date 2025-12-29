@@ -1,17 +1,13 @@
 function solution(brown, yellow) {
-    const result = [];
     
-    const area = brown + yellow;
+    const divisors = [];
     
-    const prime = [];
-    
-    for (let i = 1; i <= Math.sqrt(area); i++) {
-        const w = area / i;
-        const h = i;
-        
-        if (area  % i === 0 && (w - 2) * (h - 2) === yellow) {
-            result.push(w, h);
+    for (let i = 1; i <= Math.sqrt(yellow); i++) {
+        if (yellow % i === 0 && (i + 2) * (yellow / i + 2) === brown + yellow) {
+            divisors.push(yellow / i);
+            divisors.push(i)
         }
     }
-    return result;
+    
+    return [divisors[0] + 2, divisors[1] + 2];
 }
