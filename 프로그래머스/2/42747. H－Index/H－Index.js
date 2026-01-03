@@ -1,14 +1,16 @@
 function solution(citations) {
-    const sorted = citations.sort((a, b) => b - a);
+    const sortedByDesc = citations.sort((a, b) => b - a);
+    
+    console.log(sortedByDesc);
     
     let answer = 0;
     
-    for (let i = 0; i < sorted.length; i++) {
-        if (sorted[i] >= (i + 1)) {
-            answer++;
+    for (let i = 0; i < sortedByDesc.length; i++) {
+        if (i + 1 <= sortedByDesc[i]) {
+            answer = i + 1;
         }
     }
     
-    // console.log(answer);
     return answer;
+    
 }
