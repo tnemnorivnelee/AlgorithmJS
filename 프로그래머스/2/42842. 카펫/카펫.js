@@ -1,23 +1,18 @@
 function solution(brown, yellow) {
-    // 브라운 + 옐로우 = 가로 * 세로
-    // 가로, 세로 = 약수 중 하나
     // 가로 >= 세로
-    // 가로 = 옐로우 가로길이 + 2
-    // 세로 = 옐로우 세로길이 + 2
+    // 가로 * 세로 = brown + yellow
+    // 가로 세로는 yellow 의 약수
     
     const divisors = [];
     
-    
     for (let i = 1; i <= Math.sqrt(yellow); i++) {
-        const w = yellow / i;
-        const h = i;
-        if (yellow % i === 0 && (w + 2) * (h + 2) === brown + yellow) {
-            divisors.push(w + 2);
-            divisors.push(h + 2);
+        const w = yellow / i + 2;
+        const h = i + 2;
+        
+        if (w * h === brown + yellow && w >= h) {
+            divisors.push(w);
+            divisors.push(h);
         }
     }
-    
-    // console.log(divisors);
-    
-    return divisors;
+    return divisors;    
 }
