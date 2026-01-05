@@ -1,30 +1,24 @@
-function addValue(map, key, value) {
-  if (map.has(key)) {
-    map.get(key).push(value);
-  } else {
-    map.set(key, [value]);
-  }
-}
-
 function solution(clothes) {
-  const multiMap = new Map();
-
-  for (let i = 0; i < clothes.length; i++) {
-    const [clothe, key] = clothes[i];
-    addValue(multiMap, key, clothe);
-  }
-
-  let total = 1;
     
-  if (multiMap.size > 1) {
-    for (const key of multiMap.keys()) {
-      const size = multiMap.get(key).length + 1;
-      total *= size;
+    const clothesMap = new Map();
+    
+    for (let i = 0; i < clothes.length; i++) {
+        const [value, key] = clothes[i];
+        
+        if (clothesMap.has(key)) {
+            clothesMap.get(key).push(value);
+        } else {
+            clothesMap.set(key, [value]);
+        }
     }
-    total--;
-  } else {
-    total = clothes.length;
-  }
+    
+    console.log(clothesMap);
 
-    return total;
+    let answer = 1;
+    
+    for (let [key, value] of clothesMap) {
+        answer *= value.length + 1;
+    }
+    
+    return answer - 1;
 }
