@@ -1,18 +1,16 @@
 function solution(s){
-    let answer = 0;
+    
+    let count = 0;
     
     for (let i = 0; i < s.length; i++) {
-        
-        if (answer < 0) return false;
+        if (count < 0) return false;
         
         if (s[i] === '(') {
-            answer++;  
+            count++;
         } else if (s[i] === ')') {
-            answer--;
+            count--;
         }
     }
     
-    console.log(answer);
-    
-    return answer === 0 ? true : false;
+    return count === 0 ? true : false;
 }
