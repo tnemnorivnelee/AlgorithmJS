@@ -1,30 +1,37 @@
-// i번과 j번이 연결되어 있다면 [i][j] === 1
-// 예시 1
-// 0, 0 번 [0][0] === 1 -> 1번, 1번 컴 연결
-// 0, 1 번 [0][1] === 1 -> 1번, 2번 컴 연결
-// 0, 2 번 [0][2] === 0 -> 1번, 3번 컴 미연결
-
 function solution(n, computers) {
-    var answer = 0;
-    
+    // 1. 미방문 처리된 배열을 생성.
     const visited = new Array(n).fill(false);
     
-    function dfs(currentComputer) {
-        visited[currentComputer] = true;  
+    // 2. 네트워크 개수를 샐 변수 생성.
+    let answer = 0;
+    
+    // 3. dfs 함수 생성
+    function dfs(node) {
+        // 3-1. 종료조건
+        if (visited[node]) {
+            return;
+        }
         
-        for (let nextComputer = 0; nextComputer < n; nextComputer++) {
-            if (computers[currentComputer][nextComputer] === 1 && !visited[nextComputer]) {
-                dfs(nextComputer);
+        // 3-2. 실행조건
+        visited[node] = true;
+        
+        // 3-3. 다음 실행
+        for (let i = 0; i < n; i++) {
+            // 연결되어 있고, 아직 방문하지 않았다면?
+            // i 로 이동해서 dfs 다시 실행.
+            if (computers[node][i] === 1 && !visited[i]) {
+                dfs(i);
             }
         }
     }
     
+    // 4. 모든 컴퓨터를 하나씩 돌아보기.
     for (let i = 0; i < n; i++) {
         if (!visited[i]) {
             answer++;
             dfs(i);
         }
-    }    
-    
+    }
+
     return answer;
 }
