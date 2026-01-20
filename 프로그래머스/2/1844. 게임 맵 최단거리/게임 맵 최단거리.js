@@ -1,9 +1,23 @@
+/*
+[
+    [1,0,1,1,1],
+    [1,0,1,0,1],
+    [1,0,1,1,1],
+    [1,1,1,0,1],
+    [0,0,0,0,1]
+]
+*/
+
 function solution(maps) {
-    const n = maps.length;
-    const m = maps[0].length;
+    const row = maps[0].length;
+    const col = maps.length;
     
-    const dy = [-1, 1, 0, 0];
-    const dx = [0, 0, -1, 1];
+    const direction = [
+        [0, 1],
+        [0, -1],
+        [-1, 0],
+        [1, 0]
+    ]; // 동서남북 순서
     
     const queue = [];
     queue.push([0, 0]);
@@ -11,16 +25,19 @@ function solution(maps) {
     while (queue.length > 0) {
         const [y, x] = queue.shift();
         
-        for (let i = 0; i < 4; i++) {
-            const ny = y + dy[i];
-            const nx = x + dx[i];
+        for (let i = 0; i < direction.length; i++) {
+            const [dy, dx] = direction[i];
             
-            if (0 <= ny && ny < n && 0 <= nx && nx < m && maps[ny][nx] === 1) {
+            const ny = y + dy;
+            const nx = x + dx;
+            
+            if (0 <= nx && nx < row && 0 <= ny && ny < col && maps[ny][nx] === 1) {
                 maps[ny][nx] = maps[y][x] + 1;
                 
                 queue.push([ny, nx]);
             }
         }
     }
-    return maps[n - 1][m - 1] > 1 ? maps[n - 1][m - 1] : -1;
+    
+    return maps[col - 1][row - 1] > 1 ? maps[col - 1][row - 1] : -1;
 }
