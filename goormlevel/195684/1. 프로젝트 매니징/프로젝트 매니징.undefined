@@ -1,0 +1,30 @@
+const readline = require('readline');
+let rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+let input = [];
+
+rl.on('line', (line) => {
+	if (line.trim()) {
+		input.push(line.trim());
+	}
+	if (input.length === Number(input[0]) + 2) {
+		rl.close();
+	}
+});
+
+rl.on('close', () => {
+	solution(input);
+	process.exit();
+})
+
+function solution(input) {
+	// 필요한 기능의 개수 N
+	const N = Number(input[0]);
+	// 현재 시각 T 시 M 분
+	let [T, M] = input[1].split(" ").map(Number);
+	// i 번째 기능을 개발하는 데 workTime[i] 분 소요
+	const workTime = input.slice(2).map(Number);
+
+	for (let i = 0; i < N; i++) {
