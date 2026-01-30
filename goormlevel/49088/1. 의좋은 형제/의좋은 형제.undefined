@@ -1,0 +1,41 @@
+// Run by Node.js
+const readline = require('readline');
+
+(async () => {
+	let rl = readline.createInterface({ input: process.stdin });
+
+	const lines = [];
+	 
+	for await (const line of rl) {
+		lines.push(line.trim());
+
+		if (lines.length === 2) {
+			rl.close();
+		}
+	}
+
+	// N1 = 구름이, N2 = 바람이
+	// 구름이가 바람이한테 먼저 반을 넘겨줌
+	let [N1, N2] = lines[0].split(" ").map(Number);
+	const day = lines[1] ?? Number(lines[1]);
+
+	for (let i = 1; i <= day; i++) {
+		if (i % 2 !== 0) {
+			// i 가 짝수면 N1 -> N2
+			let give = Math.floor((N1 + 1) / 2);
+			N1 -= give;
+			N2 += give;
+		} else {
+			// i 가 홀수면 N2 -> N1
+			let give = Math.floor((N2 + 1) / 2);
+			
+			N2 -= give;
+			N1 += give;
+		}
+	}
+
+	console.log(`${N1} ${N2}`);
+
+
+	process.exit();
+})();
