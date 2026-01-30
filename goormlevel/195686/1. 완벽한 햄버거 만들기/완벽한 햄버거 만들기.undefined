@@ -1,0 +1,31 @@
+const readline = require('readline');
+let rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
+let input = [];
+
+rl.on('line', (line) => {
+	if (line.trim()) input.push(line.trim());
+
+	if (input.length === 2) rl.close();
+});
+
+rl.on('close', () => {
+	solution(input);
+	process.exit();
+});
+
+function solution(input) {
+	const N = Number(input[0]);
+	const K = input[1].split(' ').map(Number);
+	const maxIndex = K.indexOf(Math.max(...K));
+
+	// console.log(maxIndex);
+
+	let temp = K[0];
+	
+	// 왼쪽 검사
+	for (let i = 1; i < maxIndex; i++) {
+		if (temp > K[i]) {
