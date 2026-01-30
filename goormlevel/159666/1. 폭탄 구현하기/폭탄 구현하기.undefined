@@ -1,0 +1,45 @@
+// Run by Node.js
+const readline = require('readline');
+
+(async () => {
+	let rl = readline.createInterface({ input: process.stdin });
+
+	let input = [];
+	
+	for await (const line of rl) {
+		input.push(line.trim());
+
+		if (input[0] && Number(input[0].split(' ')[1]) + 1 === input.length) {
+			rl.close();
+		}
+	}
+
+	// console.log(input);
+
+	const [N, K] = input[0].split(' ').map(Number);
+	const yx = input.slice(1);
+
+	const rect = Array.from({ length: N + 2 }, () => new Array(N + 2).fill(0));
+
+	for (let i = 0; i < K; i++) {
+		const [y, x] = yx[i].split(' ').map(Number);
+
+		rect[y][x] += 1;
+		rect[y - 1][x]++;
+		rect[y + 1][x]++;
+		rect[y][x - 1]++;
+		rect[y][x + 1]++;
+	}
+
+	let result = 0;
+	
+	for (let i = 1; i <= N; i++) {
+		for (let j = 1; j <= N; j++) {
+			result += rect[i][j];
+		}
+	}
+
+	console.log(result);
+
+	process.exit();
+})();
