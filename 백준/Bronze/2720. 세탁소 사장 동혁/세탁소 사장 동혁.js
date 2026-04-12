@@ -1,28 +1,44 @@
 const fs = require("fs");
-const input = fs.readFileSync(0).toString().trim().split('\n').map(Number);
 
-const T = input[0];
+const input = fs.readFileSync(0).toString().trim().split("\n");
 
-const coins = {
-  Quarter: 25,
-  Dime: 10,
-  Nickel: 5,
-  Penny: 1,
-};
+function solution(input) {
+  const result = [];
 
-for (let i = 1; i <= T; i++) {
-  let change = input[i];
+  const units = {
+    Quarter: 25,
+    Dime: 10,
+    Nickel: 5,
+    Penny: 1,
+  };
 
-  const quarterCount = Math.floor(change / coins.Quarter);
-  change %= coins.Quarter;
+  // const T = Number(input[0]); // 테스트 케이스 개수
+  const changes = input.slice(1).map(Number);
 
-  const dimeCount = Math.floor(change / coins.Dime);
-  change %= coins.Dime;
+  for (let i = 0; i < changes.length; i++) {
+    let change = changes[i];
+    const temp = [0, 0, 0, 0];
 
-  const nickelCount = Math.floor(change / coins.Nickel);
-  change %= coins.Nickel;
+    if (change >= units.Quarter) {
+      temp[0] = Math.floor(change / units.Quarter);
+      change %= units.Quarter;
+    }
+    if (change >= units.Dime) {
+      temp[1] = Math.floor(change / units.Dime);
+      change %= units.Dime;
+    }
+    if (change >= units.Nickel) {
+      temp[2] = Math.floor(change / units.Nickel);
+      change %= units.Nickel;
+    }
+    if (change >= units.Penny) {
+      temp[3] = Math.floor(change / units.Penny);
+      change %= units.Penny;
+    }
+    result.push(temp.join(" "));
+  }
 
-  const pennyCount = change;
-
-  console.log(quarterCount, dimeCount, nickelCount, pennyCount);
+  console.log(result.join("\n"));
 }
+
+solution(input);
