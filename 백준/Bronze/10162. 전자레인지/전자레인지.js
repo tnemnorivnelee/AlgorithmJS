@@ -8,23 +8,17 @@ function solution(input) {
   const ABC = [300, 60, 10];
   const counts = [0, 0, 0];
 
-  counts[0] = Math.floor(T / ABC[0]);
-  T %= ABC[0];
-
-  counts[1] = Math.floor(T / ABC[1]);
-  T %= ABC[1];
-
-  counts[2] = Math.floor(T / ABC[2]);
-  T %= ABC[2];
-
-  if (
-    Number(input) ===
-    ABC[0] * counts[0] + ABC[1] * counts[1] + ABC[2] * counts[2]
-  ) {
-    console.log(counts.join(" "));
-  } else {
+  if (T % ABC[ABC.length - 1] !== 0) {
     console.log(-1);
+    return;
   }
+
+  for (let i = 0; i < ABC.length; i++) {
+    counts[i] = Math.floor(T / ABC[i]);
+    T %= ABC[i];
+  }
+
+  console.log(counts.join(" "));
 }
 
 solution(input);
