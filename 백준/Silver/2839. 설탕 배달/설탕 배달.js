@@ -1,22 +1,23 @@
-const fs = require('fs');
+const fs = require("fs");
 
-let input = Number(fs.readFileSync('/dev/stdin').toString().trim());
+const input = fs.readFileSync(0).toString().trim();
 
-let count = 0;
+function solution(input) {
+  let targetWeight = Number(input);
+  let result = 0;
 
-while (true) {
-    if (input % 5 === 0) {
-        count += input / 5;
-        break;
+  while (targetWeight >= 0) {
+    if (targetWeight % 5 === 0) {
+      result += Math.floor(targetWeight / 5);
+      console.log(result);
+      return;
+    } else {
+      targetWeight -= 3;
+      result++;
     }
+  }
 
-    input -= 3;
-    count++;
-
-    if (input < 0) {
-        count = -1;
-        break;
-    }
+  if (targetWeight < 0) console.log(-1);
 }
 
-console.log(count);
+solution(input);
