@@ -9,19 +9,13 @@ function solution(people, limit) {
     let rightIdx = people.length - 1;
     
     while (leftIdx <= rightIdx) {
-        if (leftIdx === rightIdx) {
-            answer++;
-            break;
-        }
-        
         if (people[leftIdx] + people[rightIdx] > limit) {
             leftIdx++;
-            answer++;
         } else if (people[leftIdx] + people[rightIdx] <= limit) {
             leftIdx++;
             rightIdx--;
-            answer++;
         }
+        answer++;
     }
     
     
