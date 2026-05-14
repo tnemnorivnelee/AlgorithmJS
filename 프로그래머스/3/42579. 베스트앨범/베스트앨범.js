@@ -1,50 +1,41 @@
 function solution(genres, plays) {
+    var answer = [];
+    
+    // 1. Map 형태로 정리
+    const nm = new Map();
+    
+    for (let i = 0; i < genres.length; i++) {
+        const g = genres[i];
+        const p = plays[i];
 
-  const musicMap = new Map();
-
-  for (let i = 0; i < genres.length; i++) {
-    const key = genres[i];
-    const value = plays[i];
-
-    if (musicMap.has(key)) {
-      musicMap.get(key).push({i, value});
-    } else {
-      musicMap.set(key, [{i, value}]);
+        if (!nm.has(g)) {
+            nm.set(g, { total: 0, list: [] });
+        }
+        
+        const data = nm.get(g);
+        data.total += p;
+        data.list.push({ id : i, play: p });
     }
-  }
 
-  const totalPlays = new Map();
-
-  for (let i = 0; i < genres.length; i++) {
-    const key = genres[i];
-    const value = plays[i];
-
-    totalPlays.set(key, (totalPlays.get(key) || 0) + value);
-  }
-
-
-  const sortedGenres = [...totalPlays.keys()].sort((a, b) => {
-    return totalPlays.get(b) - totalPlays.get(a);
-  });
-
-  for (let i = 0; i < sortedGenres.length; i++) {
-    const genre = sortedGenres[i];
-
-    musicMap.get(genre).sort((a, b) => b.value === a.value ? a.i - b.i : b.value - a.value);
-  }
-  
-
-  const answer = [];
-
-  for (let j = 0; j < sortedGenres.length; j++) {
-    const genre = sortedGenres[j];
-
-    const topTwo = musicMap.get(genre).slice(0, 2);
-
-    for (const {i, value} of topTwo) {
-      answer.push(i);
+    const sortedMap = new Map([...nm].sort((a,b) => {
+        const [aKey, aValue] = a;
+        const [bKey, bValue] = b;
+        return bValue.total - aValue.total;
+    }));
+    
+    for (const [key, value] of sortedMap) {
+        const {list} = value;
+        const sortedByPlay = list.sort((a,b) => {
+            if (a.play !== b.play) return b.play - a.play;
+            return a.id - b.id;
+        });
+        
+       answer.push(sortedByPlay[0].id);
+        
+        if (sortedByPlay.length >= 2) {
+            answer.push(sortedByPlay[1].id);
+        }
     }
-  }
-
-  return answer;
+    
+    return answer;
 }
