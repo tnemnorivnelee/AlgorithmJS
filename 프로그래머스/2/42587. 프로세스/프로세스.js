@@ -1,34 +1,22 @@
 function solution(priorities, location) {
     var answer = 0;
-
-    const queue = priorities.map((value, index) => {
-        return {index: index, priority: value};
-    });
     
-    let printCount = 0;
+    const queue = Array.from({ length: priorities.length }, (_, i) => ({ index: i, priority: priorities[i] }));
     
-    while (queue.length > 0) {
-        const currentDocument = queue.shift();
+    // console.log(queue);
+    
+    while (queue.length) {
+        const max = Math.max(...queue.map((v) => v.priority));
+        const { index, priority } = queue.shift();
         
-        const hasHigherPriority = queue.some(({index, priority}) => {
-            return currentDocument.priority < priority;
-        });
-        
-        if (hasHigherPriority) {
-            queue.push(currentDocument);
+        if (priority !== max) {
+            queue.push({ index, priority });
         } else {
-            printCount++;
-            
-            if (currentDocument.index === location) {
-                answer = printCount;
-                break;
-            }
+            answer++;
+            if (index === location) break;
         }
     }
-    
-    
-    
-    
+  
     
     return answer;
 }
