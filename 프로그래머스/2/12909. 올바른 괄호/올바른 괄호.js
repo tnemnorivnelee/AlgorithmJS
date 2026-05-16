@@ -1,16 +1,17 @@
 function solution(s){
-    
-    let count = 0;
+    const stack = [];
     
     for (let i = 0; i < s.length; i++) {
-        if (count < 0) return false;
+        const char = s[i];
         
-        if (s[i] === '(') {
-            count++;
-        } else if (s[i] === ')') {
-            count--;
+        if (char === "(") {
+            stack.push(char);
+        } else {
+            if (!stack.length) return false;
+            stack.pop();
         }
     }
     
-    return count === 0 ? true : false;
+
+    return stack.length ? false : true;
 }
