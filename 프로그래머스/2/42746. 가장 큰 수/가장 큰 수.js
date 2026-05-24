@@ -1,15 +1,16 @@
 function solution(numbers) {
     var answer = '';
     
-    const numbersToString = numbers.map(String);
+    const strNums = numbers.map((value) => String(value));
+    const sortedNums = strNums.sort((a, b) => Number(b + a) - Number(a + b));
     
-    const sortedNumbersToString = numbersToString.sort((a, b) => Number(b + a) - Number(a + b));
+    console.log(sortedNums);
     
-    answer = sortedNumbersToString.join("");
+    sortedNums.forEach((value) => answer += value);
     
     if (answer[0] === "0") {
-        answer = "0";
+        return "0";
+    } else {
+        return answer;
     }
-    
-    return answer;
 }
