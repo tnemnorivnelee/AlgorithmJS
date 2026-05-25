@@ -1,27 +1,24 @@
-function solution(numbers, target) {
-    
-     // dfs 3단계 공식
-    // 1. 탈출 조건 : "언제 끝낼 것인가?" (가장 중요, 없으면 무한루프)
-    // 2. 수행 동작 : "정답을 찾거나, 방문 체크를 하는 곳"
-    // 3. 다음 단계 호출 : "자식 노드나 다음 선택지로 이동"
-    
-    let answer = 0;
-    
-    function dfs(index, sum) {
-        
-        if (numbers.length === index) {
-            if (sum === target) {
-                answer++;
-            }
-            return;
+function getAllCasesByBfs(numbers) {
+    let leaves = [0];
+
+    for (let num of numbers) {
+        const nextLeaves = [];
+
+        for (let leaf of leaves) {
+            nextLeaves.push(leaf + num);
+            nextLeaves.push(leaf - num);
         }
         
-        dfs(index + 1, sum + numbers[index]);
-        dfs(index + 1, sum - numbers[index]);
+        leaves = nextLeaves;
     }
+    return leaves;
+}
+
+// 프로그래머스에서 실행을 시작하는 메인 함수입니다.
+function solution(numbers, target) {
+    const allCases = getAllCasesByBfs(numbers);
     
-    dfs(0, 0);
+    const answer = allCases.filter(leaf => leaf === target).length;
     
     return answer;
-    
 }
