@@ -1,6 +1,3 @@
 function solution(absolutes, signs) {
-    return absolutes.map((v, i) => {
-        if (!signs[i]) return "" + "-" + v;
-        else return v;
-    }).reduce((acc, cur) => +acc + +cur, 0);
+    return absolutes.reduce((acc, cur, i) => acc + cur * (signs[i] ? 1 : -1), 0);
 }
