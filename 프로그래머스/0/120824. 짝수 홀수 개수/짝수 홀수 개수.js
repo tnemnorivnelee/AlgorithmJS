@@ -1,7 +1,6 @@
 function solution(num_list) {
-    return num_list.reduce((acc, cur) => {
-        if (cur % 2 === 0) acc[0] += 1;
-        else acc[1] += 1;
-        return acc;
-    }, [0, 0]);
+    return [
+        num_list.filter((v) => v % 2 === 0).length,
+        num_list.filter((v) => v % 2 !== 0).length
+    ]
 }
