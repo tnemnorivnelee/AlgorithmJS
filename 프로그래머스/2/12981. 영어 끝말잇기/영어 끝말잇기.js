@@ -1,16 +1,15 @@
 function solution(n, words) {
-    const stack = [];
-    stack.push(words[0]);
+    const usedWords = new Set();
+    usedWords.add(words[0]);
     
     for (let i = 1; i < words.length; i++) {
-        const headWord = words[i - 1];
-        const tailWord = words[i];
+        const head = words[i - 1];
+        const tail = words[i];
         
-        if (headWord[headWord.length - 1] !== tailWord[0] || stack.includes(words[i])) {
-            return [(i % n) + 1, Math.floor(i / n) + 1]
+        if (head[head.length - 1] !== tail[0] || usedWords.has(words[i])) {
+            return [i % n + 1, Math.floor(i / n) + 1];
         }
-        stack.push(words[i]);
+        usedWords.add(words[i]);
     }
-
     return [0, 0];
 }
