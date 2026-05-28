@@ -5,29 +5,37 @@
 
 // 알아볼 수 없는 번호를 0 으로 표기
 
-
 function solution(lottos, win_nums) {
-    
-    if (lottos.every((v) => v === 0)) return [1, 6];
-    
-    let lowCount = 0;
-    
-    for (let i = 0; i < lottos.length; i++) {
-        if (win_nums.includes(lottos[i])) lowCount++;    
-    }
+    const rank = [6, 6, 5, 4, 3, 2, 1];
     
     const zeroCount = lottos.filter((v) => v === 0).length;
-    const highCount = lowCount + zeroCount;
-    
-    switch(highCount) {
-        case 6: return [1, 1 + zeroCount];
-        case 5: return [2, 2 + zeroCount];
-        case 4: return [3, 3 + zeroCount];
-        case 3: return [4, 4 + zeroCount];
-        case 2: return [5, 5 + zeroCount];
-        default: return [6, 6];
-    }
-    
-    console.log(lowCount);
-    console.log(zeroCount);
+    const lowCount = lottos.filter((v) => win_nums.includes(v)).length;
+
+    return [rank[zeroCount + lowCount], rank[lowCount]];
 }
+
+// function solution(lottos, win_nums) {
+    
+//     if (lottos.every((v) => v === 0)) return [1, 6];
+    
+//     let lowCount = 0;
+    
+//     for (let i = 0; i < lottos.length; i++) {
+//         if (win_nums.includes(lottos[i])) lowCount++;    
+//     }
+    
+//     const zeroCount = lottos.filter((v) => v === 0).length;
+//     const highCount = lowCount + zeroCount;
+    
+//     switch(highCount) {
+//         case 6: return [1, 1 + zeroCount];
+//         case 5: return [2, 2 + zeroCount];
+//         case 4: return [3, 3 + zeroCount];
+//         case 3: return [4, 4 + zeroCount];
+//         case 2: return [5, 5 + zeroCount];
+//         default: return [6, 6];
+//     }
+    
+//     console.log(lowCount);
+//     console.log(zeroCount);
+// }
