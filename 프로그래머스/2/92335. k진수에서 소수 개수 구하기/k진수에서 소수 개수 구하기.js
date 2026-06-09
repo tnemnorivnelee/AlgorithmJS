@@ -8,13 +8,5 @@ function isPrime(value) {
 }
 
 function solution(n, k) {
-    var answer = 0;
-    
-    const arr = n.toString(k).split("0").map(Number);
-    
-    for (let i = 0; i < arr.length; i++) {
-        if (isPrime(arr[i])) answer++;
-    }
-    
-    return answer;
+    return n.toString(k).split("0").map(Number).filter((v) => isPrime(v)).length;
 }
