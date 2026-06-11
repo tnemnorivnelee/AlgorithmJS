@@ -18,19 +18,16 @@
 // 참가 인원 23, 내 차례 10
 
 function solution(n, t, m, p) {
+    let tempStr = '';
     let answer = '';
-    const arr = [];
     const minRequired = t * m;
-
-    for (let i = 0; i < minRequired; i++) {
-        const converted = i.toString(n).split("");
-        
-        arr.push(...converted);
+    
+    for (let i = 0; tempStr.length < minRequired; i++) {
+        tempStr += i.toString(n);
     }
     
-    for (let i = 0; i < arr.length; i++) {
-        if (answer.length >= t) break;
-        answer += arr[p - 1];
+    while (answer.length < t) {
+        answer += tempStr[p - 1];
         p += m;
     }
 
