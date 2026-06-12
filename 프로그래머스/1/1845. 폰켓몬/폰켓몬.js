@@ -1,9 +1,10 @@
-function solution(nums) {
-    var answer = 0;
+// 당신은 폰켓몬을 잡기 위한 오랜 여행 끝에 홍박사님의 연구실에 도착
+// 홍박사님은 당신에게 자신의 연구실에 있는 총 N 마리의 폰켓몬 중에서 N/2 마리를 가져가도 좋다고 함
 
-    const ns = new Set(nums);
-    
-    answer = Math.min(ns.size, nums.length / 2);
-    
-    return answer;
+// 홍박사님 연구실의 폰켓못은 종류에 따라 번호를 붙여 구분
+// 따라서 같은 종류의 폰켓몬은 같은 번호를 가지고 있음
+// 예를 들어 연구실ㅇ
+
+function solution(nums) {
+    return Math.min(nums.length / 2, new Set(nums).size);
 }
