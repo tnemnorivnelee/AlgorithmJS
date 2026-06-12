@@ -1,17 +1,9 @@
-function solution(s){
-    const stack = [];
+function solution(s) {
+    const stack = [s[0]];
     
-    for (let i = 0; i < s.length; i++) {
-        const char = s[i];
-        
-        if (char === "(") {
-            stack.push(char);
-        } else {
-            if (!stack.length) return false;
-            stack.pop();
-        }
+    for (let i = 1; i < s.length; i++) {
+        if (stack[stack.length - 1] === "(" && s[i] === ")") stack.pop();
+        else stack.push(s[i]);
     }
-    
-
     return stack.length ? false : true;
 }
