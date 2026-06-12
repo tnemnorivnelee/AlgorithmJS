@@ -1,23 +1,19 @@
 function solution(clothes) {
     var answer = 1;
     
-    const nMap = new Map();
+    const nm = new Map();
     
-    clothes.forEach((value) => {
-        const [name, category] = value;
+    clothes.forEach((v) => {
+        const [name, category] = v;
         
-        if (nMap.has(category)) {
-            nMap.set(category, [...nMap.get(category), name]);
+        if (nm.has(category)) {
+            nm.set(category, nm.get(category) + 1);
         } else {
-            nMap.set(category, [name]);
+            nm.set(category, 1);
         }
     });
     
-    for (const [key, value] of nMap) {
-        answer *= value.length + 1;
-    }
+    for (const v of nm.values()) answer *= v + 1;
     
     return answer - 1;
-    
-    return answer;
 }
