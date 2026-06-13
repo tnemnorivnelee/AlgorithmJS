@@ -1,20 +1,27 @@
 function solution(priorities, location) {
     let answer = 0;
-
-    const queue = priorities.map((v, i) => ({ index: i, priority: v }));
     
+    const prioritiesLen = priorities.length;
+    
+    const queue = Array.from({ length: prioritiesLen }).fill(0);
+    
+    for (let i = 0; i < prioritiesLen; i++) {
+        queue[i] = {
+            index: i,
+            priority: priorities[i],
+        };
+    }
+ 
     while (queue.length) {
-        let max = Math.max(...queue.map((v) => v.priority));
-        const first = queue.shift();
+        const data = queue.shift();
         
-        
-        if (max !== first.priority) {
-            queue.push(first);  
+        if (queue.some((v) => v.priority > data.priority)) {
+            queue.push(data);
+            
         } else {
-            answer++;
-            if (first.index === location) break;
+             answer++;
+            if (data.index === location) break;
         }
     }
-    
     return answer;
 }
