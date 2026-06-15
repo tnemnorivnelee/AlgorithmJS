@@ -1,19 +1,15 @@
 function solution(sizes) {
-    let maxWidth = 0;
-    let maxHeight = 0;
+    var answer = [0, 0];
     
-    sizes.forEach((card) => {
-        const [w, h] = card;
+    for (let i = 0; i < sizes.length; i++) {
+        const [w, h] = sizes[i];
         
         const longer = Math.max(w, h);
         const shorter = Math.min(w, h);
         
-        maxWidth = Math.max(maxWidth, longer);
-        maxHeight = Math.max(maxHeight, shorter);
-        
-        
-    })
+        answer[0] = Math.max(answer[0], longer);
+        answer[1] = Math.max(answer[1], shorter);
+    }
     
-    
-    return maxWidth * maxHeight;
+    return answer[0] * answer[1];
 }
