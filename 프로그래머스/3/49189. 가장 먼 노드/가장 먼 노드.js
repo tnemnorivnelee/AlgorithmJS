@@ -28,9 +28,10 @@ function solution(n, edge) {
     
     const queue = [1];
     distances[1] = 0;
+    let head = 0;
     
-    while (queue.length > 0) {
-        const currentNode = queue.shift();
+    while (head < queue.length) {
+        const currentNode = queue[head++];
         
         for (let i = 0; i < adj[currentNode].length; i++) {
             const nextNode = adj[currentNode][i];
@@ -44,8 +45,6 @@ function solution(n, edge) {
     }
     
     const maxDistance = Math.max(...distances);
-    
-    console.log(maxDistance);
     
     return distances.filter((v) => v === maxDistance).length;
 }
