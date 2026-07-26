@@ -1,15 +1,15 @@
 function solution(n, lost, reserve) {
     let answer = 0;
     
-    const students = Array.from({length: n}).fill(1);
+    const students = Array.from({ length: n + 1 }).fill(1);
     
-    for (let i = 0; i < n; i++) {
-        if (lost.includes(i + 1)) students[i]--;
-        if (reserve.includes(i + 1)) students[i]++;
+    for (let i = 1; i <= n; i++) {
+        if (lost.includes(i)) students[i]--;
+        if (reserve.includes(i)) students[i]++;
     }
     
  
-    for (let i = 0; i < n; i++) {
+    for (let i = 1; i <= n; i++) {
         if (students[i] === 0) {
             if (students[i - 1] === 2) {
                 students[i]++;
@@ -23,9 +23,9 @@ function solution(n, lost, reserve) {
         }
     }
     
-    students.forEach((value) => {
-        if (value) answer++;
-    })
+    for (let i = 1; i <= n; i++) {
+        if (students[i]) answer++;
+    }
     
     return answer;
 }
